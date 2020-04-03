@@ -68,37 +68,35 @@
       sudo yum install docker-ce docker-ce-cli containerd.io
       ```
 
-      
-
 9. ##### 启动docker
 
       ```shell
       sudo systemctl start docker
       ```
 
-        查看docker
+      -   查看docker
 
-      ```shell
-      docker -v
-      ```
+        ```shell
+        docker -v
+        ```
 
 10. ##### 开机自启动
 
       ```shell
-      sudo systemctl enable docker
+    sudo systemctl enable docker
       ```
 
 11. ##### 配置镜像加速 - 阿里云 https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors  选择 centos
 
        ```shell
-       sudo mkdir -p /etc/docker
-       sudo tee /etc/docker/daemon.json <<-'EOF'
-       {
-       "registry-mirrors": ["https://ek4svdsm.mirror.aliyuncs.com"]
-       }
-       EOF
-       sudo systemctl daemon-reload
-       sudo systemctl restart docker
+    sudo mkdir -p /etc/docker
+    sudo tee /etc/docker/daemon.json <<-'EOF'
+    {
+    "registry-mirrors": ["https://ek4svdsm.mirror.aliyuncs.com"]
+    }
+    EOF
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker
        ```
 
 12. ##### 安装mysql
@@ -179,8 +177,6 @@
          exit
          ```
 
-         
-
 13. ##### 安装 redis
 
        -  redis镜像拉取
@@ -221,41 +217,43 @@
 
 14. ##### 虚拟机启动自动启动容器
 
-       ```shell
-       sudo docker update mysql --restart=always
-       sudo docker update redis --restart=always
-       ```
+    ```shell
+    sudo docker update mysql --restart=always
+    sudo docker update redis --restart=always
+    ```
 
 15. ##### maven配置
 
-          1. 阿里云镜像
+       - 阿里云镜像
 
-             ```xml
-             <mirror>
-                 <id>nexus-aliyun</id>
-                 <name>Nexus aliyun</name>
-                 <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-                 <mirrorOf>central</mirrorOf>
-             </mirror>
-             ```
+         ```xml
+         <mirror>
+             <id>nexus-aliyun</id>
+             <name>Nexus aliyun</name>
+             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+             <mirrorOf>central</mirrorOf>
+         </mirror>
+         ```
 
-          2. 编译配置
+       - 编译配置
 
-             ```xml
-             <profile>
-                 <id>jdk-1.8</id>
-             
-                 <activation>
-                     <activeByDefault>true</activeByDefault>
-                 </activation>
-             
-                 <properties>
-                     <maven.compiler.source>1.8</maven.compiler.source>
-                     <maven.compiler.target>1.8</maven.compiler.target>
-                     <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-                 </properties>
-             </profile>
-             ```
+         ```xml
+         <profile>
+             <id>jdk-1.8</id>
+         
+             <activation>
+                 <activeByDefault>true</activeByDefault>
+             </activation>
+         
+             <properties>
+                 <maven.compiler.source>1.8</maven.compiler.source>
+                 <maven.compiler.target>1.8</maven.compiler.target>
+                 <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+             </properties>
+         </profile>
+         ```
+
+         
 
 16. IDEA 配置，选中我们的maven及配置文件
 
@@ -263,15 +261,15 @@
 
 18. 下载 vscode前端开发工具及插件
 
-       - auto close
-       - auto rename
-       - chinese
-       - eslint
-       - html css support
-       - html snippets
-       - javascript(ES6)
-       - live server
-       - open in browser
-       - vetur
+          - auto close
+          - auto rename
+          - chinese
+          - eslint
+          - html css support
+          - html snippets
+          - javascript(ES6)
+          - live server
+          - open in browser
+          - vetur
 
-       
+          
