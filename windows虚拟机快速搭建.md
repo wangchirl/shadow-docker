@@ -104,19 +104,19 @@
      - 拉取镜像 
 
        ```shell
-   sudo  docker pull mysql:5.7
+      sudo  docker pull mysql:5.7
        ```
     
      - 查看镜像 
 
        ```shell
-   sudo docker images
+      sudo docker images
        ```
     
      - 启动容器 
 
        ```shell
-   sudo  docker run -p 3306:3306 --name mysql \
+      sudo  docker run -p 3306:3306 --name mysql \
        -v /mydata/mysql/log:/var/log/mysql \
        -v /mydata/mysql/data:/var/lib/mysql \
        -v /mydata/mysql/conf:/etc/mysql \
@@ -127,13 +127,13 @@
      -    查看容器
 
        ```shell
-   docker ps 
+      docker ps 
        ```
     
      -    navicat连接测试
 
        ```shell
-   ip:192.168.56.10
+      ip:192.168.56.10
        user:root
        password:root
        ```
@@ -141,7 +141,7 @@
      - mysql配置文件修改：/mydata/mysql/conf下创建my.cnf输入以下内容
 
        ```shell
-   [client]
+      [client]
        default-character-set=utf8
        
        [mysql]
@@ -159,20 +159,20 @@
      - 重启mysql容器
 
        ```shell
-   docker restart mysql
+      docker restart mysql
        ```
     
      - 进入容器查看配置文件
 
        ```shell
-   docker exec -it mysql /bin/bash
+      docker exec -it mysql /bin/bash
        cat /etc/mysql/my.cnf
        ```
     
      -    退出容器
 
        ```shell
-   exit
+      exit
        ```
     
     ​           
