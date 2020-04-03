@@ -8,7 +8,7 @@
    vagrant init centos/7
    ```
 
-    生成 Vagrantfile文件
+   > 生成 Vagrantfile文件
 
 4. ##### 添加box 
 
@@ -103,171 +103,175 @@
 
 12. ##### 安装mysql
 
-        [可以切换用户 su root  密码是vagrant，后续就不用带 sudo了]	
-        拉取镜像 
+       > [可以切换用户 su root  密码是vagrant，后续就不用带 sudo了]	
 
-       ```shell
-       sudo  docker pull mysql:5.7
-       ```
+       - 拉取镜像 
 
-        查看镜像 
+         ```shell
+         sudo  docker pull mysql:5.7
+         ```
 
-       ```shell
-       sudo docker images
-       ```
+       - 查看镜像 
 
-        启动容器 
+         ```shell
+         sudo docker images
+         ```
 
-       ```shell
-       sudo  docker run -p 3306:3306 --name mysql \
-       -v /mydata/mysql/log:/var/log/mysql \
-       -v /mydata/mysql/data:/var/lib/mysql \
-       -v /mydata/mysql/conf:/etc/mysql \
-       -e MYSQL_ROOT_PASSWORD=root \
-       -d mysql:5.7
-       ```
+       - 启动容器 
 
-       查看容器
+         ```shell
+         sudo  docker run -p 3306:3306 --name mysql \
+         -v /mydata/mysql/log:/var/log/mysql \
+         -v /mydata/mysql/data:/var/lib/mysql \
+         -v /mydata/mysql/conf:/etc/mysql \
+         -e MYSQL_ROOT_PASSWORD=root \
+         -d mysql:5.7
+         ```
 
-       ```shell
-       docker ps 
-       ```
+       -    查看容器
 
-       navicat连接测试
+         ```shell
+         docker ps 
+         ```
 
-       ```shell
-       ip:192.168.56.10
-       user:root
-       password:root
-       ```
+       -    navicat连接测试
 
-        mysql配置文件修改：/mydata/mysql/conf下创建my.cnf输入以下内容
+         ```shell
+         ip:192.168.56.10
+         user:root
+         password:root
+         ```
 
-       ```shell
-       [client]
-       default-character-set=utf8
-       
-       [mysql]
-       default-character-set=utf8
-       
-       [mysqld]
-       init_connect='SET collation_connection = utf8_unicode_ci'
-       init_connect='SET NAMES utf8'
-       character-set-server=utf8
-       collation-server=utf8_unicode_ci
-       skip-character-set-client-handshake
-       skip-name-resolve
-       ```
+       - mysql配置文件修改：/mydata/mysql/conf下创建my.cnf输入以下内容
 
-        重启mysql容器
+         ```shell
+         [client]
+         default-character-set=utf8
+         
+         [mysql]
+         default-character-set=utf8
+         
+         [mysqld]
+         init_connect='SET collation_connection = utf8_unicode_ci'
+         init_connect='SET NAMES utf8'
+         character-set-server=utf8
+         collation-server=utf8_unicode_ci
+         skip-character-set-client-handshake
+         skip-name-resolve
+         ```
 
-       ```shell
-       docker restart mysql
-       ```
+       - 重启mysql容器
 
-        进入容器查看配置文件
+         ```shell
+         docker restart mysql
+         ```
 
-       ```shell
-       docker exec -it mysql /bin/bash
-       cat /etc/mysql/my.cnf
-       ```
+       - 进入容器查看配置文件
 
-       退出容器
+         ```shell
+         docker exec -it mysql /bin/bash
+         cat /etc/mysql/my.cnf
+         ```
 
-       ```shell
-       exit
-       ```
+       -    退出容器
+
+         ```shell
+         exit
+         ```
+
+         
 
 13. ##### 安装 redis
 
-     redis镜像拉取
+       -  redis镜像拉取
 
-    ```shell
-    docker pull redis
-    ```
+         ```shell
+         docker pull redis
+         ```
 
-    创建实例并启动
+       - 创建实例并启动
 
-    ```shell
-    mkdir -p /mydata/redis/conf
-    touch /mydata/redis/conf/redis.conf
-    
-    docker run -p 6379:6379 --name redis \
-    -v /mydata/redis/data:/data \
-    -v /mydata/redis/conf/redis.conf:/etc/redis/redis.conf \
-    -d redis redis-server /etc/redis/redis.conf
-    ```
+         ```shell
+         mkdir -p /mydata/redis/conf
+         touch /mydata/redis/conf/redis.conf
+         
+         docker run -p 6379:6379 --name redis \
+         -v /mydata/redis/data:/data \
+         -v /mydata/redis/conf/redis.conf:/etc/redis/redis.conf \
+         -d redis redis-server /etc/redis/redis.conf
+         ```
 
-    redis的client操作
+       - redis的client操作
 
-    ```shell
-    docker exec -it redis redis-cli
-    ```
+         ```shell
+         docker exec -it redis redis-cli
+         ```
 
-    修改redis.conf开启AOP存盘
+       - 修改redis.conf开启AOP存盘
 
-    ```shell
-    appendonly yes
-    ```
+         ```shell
+         appendonly yes
+         ```
 
-    重启redis
+       - 重启redis
 
-    ```shell
-    docker restart redis
-    ```
+         ```shell
+         docker restart redis
+         ```
 
 14. ##### 虚拟机启动自动启动容器
 
-    ```shell
-    sudo docker update mysql --restart=always
-    sudo docker update redis --restart=always
-    ```
+       ```shell
+       sudo docker update mysql --restart=always
+       sudo docker update redis --restart=always
+       ```
 
-15. maven配置
-    1）阿里云镜像
+15. ##### maven配置
 
-    ```xml
-    <mirror>
-    	<id>nexus-aliyun</id>
-    	<name>Nexus aliyun</name>
-    	<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-    	<mirrorOf>central</mirrorOf>
-    </mirror>
-    ```
+          1. 阿里云镜像
 
-    2）编译配置
+             ```xml
+             <mirror>
+                 <id>nexus-aliyun</id>
+                 <name>Nexus aliyun</name>
+                 <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                 <mirrorOf>central</mirrorOf>
+             </mirror>
+             ```
 
-    ```xml
-    <profile>
-      <id>jdk-1.8</id>
-    
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-    
-      <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-    	<maven.compiler.target>1.8</maven.compiler.target>
-    	<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-      </properties>
-    </profile>
-    ```
+          2. 编译配置
 
-20. IDEA 配置，选中我们的maven及配置文件
+             ```xml
+             <profile>
+                 <id>jdk-1.8</id>
+             
+                 <activation>
+                     <activeByDefault>true</activeByDefault>
+                 </activation>
+             
+                 <properties>
+                     <maven.compiler.source>1.8</maven.compiler.source>
+                     <maven.compiler.target>1.8</maven.compiler.target>
+                     <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+                 </properties>
+             </profile>
+             ```
 
-21. 安装lombok，mybatisx
+16. IDEA 配置，选中我们的maven及配置文件
 
-22. 下载 vscode前端开发工具及插件
+17. 安装lombok，mybatisx
 
-    - auto close
-    - auto rename
-    - chinese
-    - eslint
-    - html css support
-    - html snippets
-    - javascript(ES6)
-    - live server
-    - open in browser
-    - vetur
+18. 下载 vscode前端开发工具及插件
 
-    
+       - auto close
+       - auto rename
+       - chinese
+       - eslint
+       - html css support
+       - html snippets
+       - javascript(ES6)
+       - live server
+       - open in browser
+       - vetur
+
+       
